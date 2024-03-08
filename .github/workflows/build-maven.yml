@@ -19,19 +19,14 @@ jobs:
           java-version: '17'
       - name: Setup Build Scan dump capture
         uses: gradle/github-actions/maven-setup@v0.0.1
-      - name: Build with Maven 0
-        run: ./mvnw foo -X
       - name: Build with Maven 1
         if: always()
-        run: ./mvnw clean -X
-        env:
-          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GE_SOLUTIONS_ACCESS_TOKEN }}
+        run: ./mvnw clean
       - name: Build with Maven 2
         if: always()
-        run: ./mvnw foo -X
-      - name: Build with Maven 3
-        if: always()
-        run: ./mvnw clean -X
+        run: ./mvnw clean package
+        env:
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GE_SOLUTIONS_ACCESS_TOKEN }}
 
   build:
     name: Build
